@@ -1,0 +1,13 @@
+{
+  "name": "sermon-generator",
+  "version": "1.0.0",
+  "description": "Local Christian sermon generator using Express and vLLM",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
