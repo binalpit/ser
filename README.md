@@ -1,4 +1,4 @@
-# Christian Sermon Generator (Local vLLM)
+# Open Source Sermon Generator (Local vLLM)
 
 A simple full-stack web app to generate Christian sermons using a local vLLM API.
 
