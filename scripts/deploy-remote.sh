@@ -23,8 +23,13 @@ if [[ -n "${PM2_APP_NAME:-}" ]]; then
   PM2_LINE="pm2 restart $(printf %q "$PM2_APP_NAME")"
 fi
 
+SSH_EXTRA=()
+if [[ -n "${DEPLOY_SSH_KEY:-}" ]]; then
+  SSH_EXTRA=(-i "$DEPLOY_SSH_KEY")
+fi
+
 # Unquoted heredoc delimiter: local vars expand into the remote script.
-ssh "$DEPLOY_SSH" bash -s <<ENDSSH
+ssh "${SSH_EXTRA[@]}" "$DEPLOY_SSH" bash -s <<ENDSSH
 set -euo pipefail
 cd "$DEPLOY_APP_DIR"
 git fetch origin

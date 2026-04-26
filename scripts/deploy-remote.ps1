@@ -18,6 +18,7 @@ if (Test-Path $envFile) {
 }
 
 $sshTarget = $env:DEPLOY_SSH
+$sshKey = $env:DEPLOY_SSH_KEY
 $remoteDir = $env:DEPLOY_APP_DIR
 $branch = if ($env:DEPLOY_GIT_BRANCH) { $env:DEPLOY_GIT_BRANCH } else { "main" }
 $pm2Name = $env:PM2_APP_NAME
@@ -39,7 +40,11 @@ if ($pm2Name) {
 }
 $remoteBash = ($lines -join "`n") + "`n"
 
-$remoteBash | & ssh $sshTarget "bash -s"
+if ($sshKey) {
+    $remoteBash | & ssh -i $sshKey $sshTarget "bash -s"
+} else {
+    $remoteBash | & ssh $sshTarget "bash -s"
+}
 if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
 }
